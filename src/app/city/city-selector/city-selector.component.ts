@@ -33,8 +33,7 @@ export class CitySelectorComponent implements OnInit {
     let add = {
       'cityName':this.newCity, 'country': this.newCountry
     };
-    this._cities.addCity(add).subscribe((data: city) => {
-      console.log('data :', data);
+    this._cities.addCity(add).subscribe((data: any) => {
       data.forEach((elm) => {
         this.cities.push(elm);
       });
