@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { API_CONFIG } from '../../environment';
 import { comment } from './comment';
 
@@ -16,8 +16,13 @@ export class CommentsService {
 
   constructor(private http: HttpClient) {}
 
-  getComments() {
-    return this.http.get(API_CONFIG.FULL_ENDPOINT + this.commentUrl);
+  getComments(id) {
+    const headers = new HttpHeaders()
+      .set('Authorization', 'my-auth-token')
+      .set('Content-Type', 'application/json');
+    const params = new HttpParams()
+      .set("id", id);
+    return this.http.get(API_CONFIG.FULL_ENDPOINT + this.commentUrl, {headers: headers, params: params});
   }
 
   sendMessage(newComment: any) {

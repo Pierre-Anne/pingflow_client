@@ -9,6 +9,8 @@ import { FavoritsComponent } from './city/favorits/favorits.component';
 import { CommentComponent } from './city/comment/comment.component';
 import { CitiesService } from './city/cities.service';
 import { CityComponent } from './city/city.component';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import { CityComponent } from './city/city.component';
     CitySelectorComponent,
     FavoritsComponent,
     CommentComponent,
-    CityComponent
+    CityComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [
     CitiesService
