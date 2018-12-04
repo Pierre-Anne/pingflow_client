@@ -1,0 +1,10 @@
+<p>
+  choose a city
+</p>
+
+<select [(ngModel)]="selectedCity">
+  <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
+</select>
+<button class="btn btn-success" type="submit" (click)="onSelect()">Selected</button>
+
+
