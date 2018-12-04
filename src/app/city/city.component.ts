@@ -18,7 +18,6 @@ export class CityComponent implements OnInit {
     this._cities.selectedCityChanged.subscribe(
       (selectedCity: city) => {
         this.selectedCity = selectedCity;
-        console.log(selectedCity);
       }
     )
   }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import { CommentsService } from './comments.service';
 import { CitiesService } from '../cities.service';
+import { city } from '../city'
 import { LoginService } from '../../login/login-service.service';
 import { comment } from './comment';
 
@@ -11,6 +12,9 @@ import { comment } from './comment';
 })
 export class CommentComponent implements OnInit {
 
+  @Input() currentCityId: number;
+
+
   comments : comment[];
   newComment: string;
   connection;
@@ -20,22 +24,31 @@ export class CommentComponent implements OnInit {
               private _login: LoginService) { }
 
   ngOnInit() {
-    this._comments.getComments(this._cities.selectedCity['id']).subscribe((data: comment[]) => {
-      console.log(data);
-      this.comments = data;
-    });
+
+    this._cities.selectedCityChanged.subscribe(
+      (selectedCity: city) => {
+        this.currentCityId = selectedCity['id'];
+        this.getComments();
+      }
+    )
 
     this.connection = this._comments.getMessages().subscribe(
-      (newComment: comment ) => {
+      (newComment: any ) => {
         this.comments.push(newComment.text);
       }
     );
   }
 
+  getComments() {
+    this._comments.getComments(this.currentCityId).subscribe((data: comment[]) => {
+      console.log(data);
+      this.comments = data;
+    });
+  }
+
   addComment() {
-    let selectedCity = this._cities.selectedCity;
     let currentUser = this._login.currentUser;
-    this._comments.sendMessage({comment: this.newComment , cityId: selectedCity['id'], userId: (currentUser)?currentUser['id']:1});
+    this._comments.sendMessage({comment: this.newComment , cityId: this.currentCityId, userId: (currentUser)?currentUser['id']:1});
   }
 
   ngOnDestroy() {
