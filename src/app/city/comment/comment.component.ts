@@ -24,13 +24,13 @@ export class CommentComponent implements OnInit {
               private _login: LoginService) { }
 
   ngOnInit() {
-
+    this.getComments();
     this._cities.selectedCityChanged.subscribe(
       (selectedCity: city) => {
         this.currentCityId = selectedCity['id'];
         this.getComments();
       }
-    )
+    );
 
     this.connection = this._comments.getMessages().subscribe(
       (newComment: any ) => {
@@ -41,7 +41,6 @@ export class CommentComponent implements OnInit {
 
   getComments() {
     this._comments.getComments(this.currentCityId).subscribe((data: comment[]) => {
-      console.log(data);
       this.comments = data;
     });
   }

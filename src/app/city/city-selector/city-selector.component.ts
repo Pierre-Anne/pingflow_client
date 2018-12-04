@@ -11,7 +11,9 @@ import { city } from '../city';
 export class CitySelectorComponent implements OnInit {
 
   selectedCity: city;
-  cities;
+  newCity: string;
+  newCountry: string;
+  cities: city[];
 
   constructor(private _cities: CitiesService) {
   }
@@ -25,6 +27,18 @@ export class CitySelectorComponent implements OnInit {
 
   onSelect() {
       this._cities.selectedCity = this.selectedCity;
+  }
+
+  addCity() {
+    let add = {
+      'cityName':this.newCity, 'country': this.newCountry
+    };
+    this._cities.addCity(add).subscribe((data: city) => {
+      console.log('data :', data);
+      data.forEach((elm) => {
+        this.cities.push(elm);
+      });
+    });
   }
 
 }

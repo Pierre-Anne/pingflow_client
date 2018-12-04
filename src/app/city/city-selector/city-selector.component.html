@@ -2,9 +2,16 @@
   choose a city
 </p>
 
-<select [(ngModel)]="selectedCity">
-  <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
-</select>
-<button class="btn btn-success" type="submit" (click)="onSelect()">Selected</button>
+<div>
+  <select [(ngModel)]="selectedCity" (change)="onSelect()">
+    <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
+  </select>
+</div>
+
+<div>
+  <input type="text" placeholder="City" [(ngModel)]="newCity">
+  <input type="text" placeholder="country" [(ngModel)]="newCountry">
+  <button class="btn btn-success" type="submit" (click)="addCity()">Add city</button>
+</div>
 
 

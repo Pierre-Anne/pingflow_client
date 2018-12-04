@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../environment';
 import { city } from './city';
 
@@ -16,6 +16,16 @@ export class CitiesService {
 
   getCitiesList() {
     return this.http.get(API_CONFIG.FULL_ENDPOINT + this.cityUrl);
+  }
+
+  addCity(add) {
+    const headers = new HttpHeaders()
+      .set('Authorization', 'my-auth-token')
+      .set('Content-Type', 'application/json');
+
+    return this.http.post(API_CONFIG.FULL_ENDPOINT + this.cityUrl, JSON.stringify(add), {
+      headers: headers
+    });
   }
 
   get selectedCity(): city {
